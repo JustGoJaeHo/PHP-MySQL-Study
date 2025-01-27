@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유머 글 목록</title>
-</head>
-<body>
-    <?php if (isset($error)): ?>
+<?php foreach ($jokes as $joke): ?>
+    <blockquote>
         <p>
-            <?=$error?>
+            <?=htmlspecialchars($joke['joketext'], ENT_QUOTES, 'UTF-8')?>
+            <form action="deletejoke.php" method="post">
+                <input type="hidden" name="id" value="<?=$joke['id']?>">
+                <input type="submit" value="삭제">
+            </form>
         </p>
-    <?php else: ?>
-    <?php foreach ($jokes as $joke): ?>
-        <blockquote>
-            <p>
-                <?=htmlspecialchars($joke, ENT_QUOTES, 'UTF-8')?>
-            </p>
-        </blockquote>
-    <?php endforeach; ?>
-    <?php endif; ?>
-</body>
-</html>
+    </blockquote>
+<?php endforeach; ?>
