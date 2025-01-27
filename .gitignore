@@ -1,1 +1,4 @@
-db.php
+# DB Connect 관련 코드 분리전까지 ignore 목록에 추가
+jokes.php
+addjoke.php
+deletejoke.php
