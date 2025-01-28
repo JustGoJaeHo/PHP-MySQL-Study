@@ -8,3 +8,6 @@ PHP, MySQL 공부하기
 2025-01-27 월
 1. "Chapter 03 MySQL, 04 MySQL 데이터와 웹 출력" 공부
 2. gitignore 추가 및 수정 확인
+
+2025-01-28 화
+1. "Chapter 05 관계형 데이터베이스 디자인" 공부
