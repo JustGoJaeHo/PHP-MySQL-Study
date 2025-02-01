@@ -6,7 +6,12 @@
             <?=htmlspecialchars($joke['joketext'], ENT_QUOTES, 'UTF-8')?>
 
             (작성자: <a href="mailto:<?php echo htmlspecialchars($joke['email'], ENT_QUOTES, 'UTF-8'); ?>">
-                <?php echo htmlspecialchars($joke['name'], ENT_QUOTES, 'UTF-8'); ?></a>)
+                <?php echo htmlspecialchars($joke['name'], ENT_QUOTES, 'UTF-8'); ?></a>
+            작성일:
+            <?php
+                $date = new DateTime($joke['jokedate']);
+                echo $date->format('jS F Y');
+            ?>)
         
             <a href="editjoke.php?id=<?=$joke['id']?>">수정</a>
             

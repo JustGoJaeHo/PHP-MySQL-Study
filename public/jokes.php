@@ -3,18 +3,30 @@
         include __DIR__ . '/../includes/DatabaseConnection.php';
         include __DIR__ . '/../includes/DatabaseFunctions.php';
         
-        $jokes = allJokes($pdo);
+        $result = findAll($pdo, 'joke');
+
+        $jokes = [];
+
+        foreach ($result as $joke) {
+            $author = findById($pdo, 'author', 'id', $joke['authorid']);
+
+            $jokes[] = [
+                'id' => $joke['id'],
+                'joketext' => $joke['joketext'],
+                'jokedate' => $joke['jokedate'],
+                'name' => $author['name'],
+                'email' => $author['email']
+            ];
+        }
         
         $title = '유머 글 목록';
 
-        $totalJokes = totalJokes($pdo);
+        $totalJokes = total($pdo, 'joke');
 
-        // 버퍼 저장 시작
         ob_start();
 
         include __DIR__ . '/../templates/jokes.html.php';
 
-        // 출력 버퍼의 내용을 읽고 변수에 저장한다.
         $output = ob_get_clean();
 
     } catch (PDOException $e) {
