@@ -3,4 +3,4 @@
 # addjoke.php
 # deletejoke.php
 DatabaseConnection.php
-DatabaseFunctions.php
+DatabaseTable.php
