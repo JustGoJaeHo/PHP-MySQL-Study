@@ -1,5 +1,8 @@
 <?php
-    class JokeController {
+    namespace Ijdb\Controllers;
+    use \Hanbit\DatabaseTable;
+
+    class Joke {
         private $jokesTable;
         private $authorsTable;
 
@@ -48,31 +51,30 @@
             ];
         }
 
-        public function edit() {
-            if (isset($_POST['joke'])) {
-                $joke = $_POST['joke'];
-                $joke['jokedate'] = new DateTime();
-                $joke['authorid'] = 1;
-    
-                $this->jokesTable->save($joke);
-    
-                header('location: /joke/list');
-    
-            } else {
-                if (isset($_GET['id'])) {
-                    $joke = $this->jokesTable->findById($_GET['id']);
-                }
-    
-                $title = '유머 글 수정';
+        public function saveEdit() {
+            $joke = $_POST['joke'];
+            $joke['jokedate'] = new \DateTime();
+            $joke['authorId'] = 1;
 
-                return [
-                    'template' => 'editjoke.html.php',
-                    'title' => $title,
-                    'variables' => [
-                        'joke' => $joke ?? null
-                    ]
-                ];
+            $this->jokesTable->save($joke);
+
+            header('location: /joke/list');
+        }
+
+        public function edit() {
+            if (isset($_GET['id'])) {
+                $joke = $this->jokesTable->findById($_GET['id']);
             }
+
+            $title = '유머 글 수정';
+
+            return [
+                'template' => 'editjoke.html.php',
+                'title' => $title,
+                'variables' => [
+                    'joke' => $joke ?? null
+                ]
+            ];
         }
 
         public function delete() {
