@@ -20,3 +20,7 @@ PHP, MySQL 공부하기
 2025-02-04 화
 1. "Chapter 09 프레임워크 구축" 공부
 1-2. Apache Rewrite Engine On
+
+2025-02-10 월
+1. "Chapter 09 프레임워크 구축" 공부
+1-2. Apache Rewrite Engine - css 폴더 제외
