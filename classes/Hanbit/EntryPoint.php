@@ -1,26 +1,31 @@
 <?php
     namespace Hanbit;
 
-    class EntryPoint {
+    class EntryPoint
+    {
         private $route;
         private $method;
         private $routes;
         
-        public function __construct($route, string $method, \Hanbit\Routes $routes) {
+        public function __construct($route, string $method, \Hanbit\Routes $routes)
+        {
             $this->route = $route;
             $this->method = $method;
             $this->routes = $routes;
             $this->checkUrl();
         }
 
-        private function checkUrl() {
-            if ($this->route !== strtolower($this->route)) {
+        private function checkUrl()
+        {
+            if ($this->route !== strtolower($this->route))
+            {
                 http_response_code(301);
                 header('location: ' . strtolower($this->route));
             }
         }
 
-        private function loadTemplate($templateFileName, $variables = []) {
+        private function loadTemplate($templateFileName, $variables = [])
+        {
             extract($variables);
     
             ob_start();
@@ -30,7 +35,8 @@
             return ob_get_clean();
         }
 
-        public function run() {
+        public function run()
+        {
             $routes = $this->routes->getRoutes();
 
             $controller = $routes[$this->route][$this->method]['controller'];
@@ -40,10 +46,12 @@
 
             $title = $page['title'];
 
-            if (isset($page['variables'])) {
+            if (isset($page['variables']))
+            {
                 $output = $this->loadTemplate($page['template'], $page['variables']);
             }
-            else {
+            else
+            {
                 $output = $this->loadTemplate($page['template']);
             }
 

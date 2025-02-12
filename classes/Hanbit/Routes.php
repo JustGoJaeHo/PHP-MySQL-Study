@@ -1,7 +1,8 @@
 <?php
     namespace Hanbit;
 
-    interface Routes {
+    interface Routes
+    {
         public function getRoutes();
     }
 ?>
