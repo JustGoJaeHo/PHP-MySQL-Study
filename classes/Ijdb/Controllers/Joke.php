@@ -2,21 +2,25 @@
     namespace Ijdb\Controllers;
     use \Hanbit\DatabaseTable;
 
-    class Joke {
+    class Joke
+    {
         private $jokesTable;
         private $authorsTable;
 
-        public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable) {
+        public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable)
+        {
             $this->jokesTable = $jokesTable;
             $this->authorsTable = $authorsTable;
         }
 
-        public function list() {
+        public function list()
+        {
             $result = $this->jokesTable->findAll();
 
             $jokes = [];
 
-            foreach ($result as $joke) {
+            foreach ($result as $joke)
+            {
                 $author = $this->authorsTable->findById($joke['authorid']);
 
                 $jokes[] = [
@@ -42,7 +46,8 @@
             ];
         }
 
-        public function home() {
+        public function home()
+        {
             $title = '인터넷 유머 세상';
 
             return [
@@ -51,7 +56,8 @@
             ];
         }
 
-        public function saveEdit() {
+        public function saveEdit()
+        {
             $joke = $_POST['joke'];
             $joke['jokedate'] = new \DateTime();
             $joke['authorId'] = 1;
@@ -61,8 +67,10 @@
             header('location: /joke/list');
         }
 
-        public function edit() {
-            if (isset($_GET['id'])) {
+        public function edit()
+        {
+            if (isset($_GET['id']))
+            {
                 $joke = $this->jokesTable->findById($_GET['id']);
             }
 
@@ -77,7 +85,8 @@
             ];
         }
 
-        public function delete() {
+        public function delete()
+        {
             $this->jokesTable->delete($_POST['id']);
 
             header('location: /joke/list');

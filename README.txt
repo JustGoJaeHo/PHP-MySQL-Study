@@ -24,3 +24,6 @@ PHP, MySQL 공부하기
 2025-02-10 월
 1. "Chapter 09 프레임워크 구축" 공부
 1-2. Apache Rewrite Engine - css 폴더 제외
+
+2025-02-12 수
+1. "Chapter 10 사용자 계정" 공부

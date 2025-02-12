@@ -1,5 +1,6 @@
 <?php
-    function autoloder($className) {
+    function autoloder($className)
+    {
         $fileName = str_replace('\\', '/', $className) . '.php';
 
         $file = __DIR__ . '/../classes/' . $fileName;
