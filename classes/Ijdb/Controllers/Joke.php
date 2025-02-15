@@ -1,16 +1,20 @@
 <?php
     namespace Ijdb\Controllers;
+
     use \Hanbit\DatabaseTable;
+    use \Hanbit\Authentication;
 
     class Joke
     {
         private $jokesTable;
         private $authorsTable;
+        private $authentication;
 
-        public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable)
+        public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable, Authentication $authentication)
         {
             $this->jokesTable = $jokesTable;
             $this->authorsTable = $authorsTable;
+            $this->authentication = $authentication;
         }
 
         public function list()
@@ -36,6 +40,12 @@
 
             $totalJokes = $this->jokesTable->total();
 
+            ob_start();
+
+            include __DIR__ . '/../../templates/';
+
+            $output = ob_get_clean();
+
             return [
                 'template' => 'jokes.html.php',
                 'title' => $title,
@@ -58,9 +68,11 @@
 
         public function saveEdit()
         {
+            $author = $this->authentication->getUser();
+
             $joke = $_POST['joke'];
             $joke['jokedate'] = new \DateTime();
-            $joke['authorId'] = 1;
+            $joke['authorId'] = $author['id'];
 
             $this->jokesTable->save($joke);
 
