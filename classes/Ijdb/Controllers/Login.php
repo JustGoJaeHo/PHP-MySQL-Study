@@ -54,7 +54,6 @@
 
         public function logout()
         {
-
             unset($_SESSION['username']);
             unset($_SESSION['password']);
 

@@ -36,7 +36,7 @@
         }
 
         public function run()
-        {            
+        {
             $routes = $this->routes->getRoutes();
 
             $authentication = $this->routes->getAuthentication();
@@ -65,11 +65,10 @@
     
                 echo $this->loadTemplate('layout.html.php', [
                     'loggedIn' => $authentication->isLoggedIn(),
-                    'output' => $output,
-                    'title' => $title
+                    'title' => $title,
+                    'output' => $output
                 ]);
             }
-
         }
     }
 ?>
