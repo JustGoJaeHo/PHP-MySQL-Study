@@ -1,5 +1,6 @@
 <?php
     namespace Ijdb\Controllers;
+    
     use \Hanbit\DatabaseTable;
 
     class Register

@@ -25,20 +25,23 @@
 
             foreach ($result as $joke)
             {
-                $author = $this->authorsTable->findById($joke['authorid']);
+                $author = $this->authorsTable->findById($joke['authorId']);
 
                 $jokes[] = [
                     'id' => $joke['id'],
                     'joketext' => $joke['joketext'],
                     'jokedate' => $joke['jokedate'],
                     'name' => $author['name'],
-                    'email' => $author['email']
+                    'email' => $author['email'],
+                    'authorId' => $author['id']
                 ];
             }
             
             $title = '유머 글 목록';
 
             $totalJokes = $this->jokesTable->total();
+
+            $author = $this->authentication->getUser();
 
             ob_start();
 
@@ -51,7 +54,8 @@
                 'title' => $title,
                 'variables' => [
                     'totalJokes' => $totalJokes,
-                    'jokes' => $jokes
+                    'jokes' => $jokes,
+                    'userId' => $author['id'] ?? null
                 ]
             ];
         }
@@ -70,6 +74,16 @@
         {
             $author = $this->authentication->getUser();
 
+            if (isset($_GET['id']))
+            {
+                $joke = $this->jokesTable->findById($_GET['id']);
+
+                if ($joke['authorId'] != $author['id'])
+                {
+                    return;
+                }
+            }
+
             $joke = $_POST['joke'];
             $joke['jokedate'] = new \DateTime();
             $joke['authorId'] = $author['id'];
@@ -81,24 +95,38 @@
 
         public function edit()
         {
+            $author = $this->authentication->getUser();
+
+            $title = '유머 글 등록';
+            
             if (isset($_GET['id']))
             {
                 $joke = $this->jokesTable->findById($_GET['id']);
-            }
 
-            $title = '유머 글 수정';
+                $title = '유머 글 수정';
+            }
 
             return [
                 'template' => 'editjoke.html.php',
                 'title' => $title,
                 'variables' => [
-                    'joke' => $joke ?? null
+                    'joke' => $joke ?? null,
+                    'userId' => $author['id'] ?? null
                 ]
             ];
         }
 
         public function delete()
         {
+            $author = $this->authentication->getUser();
+
+            $joke = $this->jokesTable->findById($_POST['id']);
+
+            if ($joke['authorId'] != $author['id'])
+            {
+                return;
+            }
+
             $this->jokesTable->delete($_POST['id']);
 
             header('location: /joke/list');

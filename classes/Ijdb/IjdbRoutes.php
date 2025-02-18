@@ -24,13 +24,13 @@
 
             $routes = [
                 'author/register' => [
-                    'GET' => [
-                        'controller' => $authorController,
-                        'action' => 'registrationForm'
-                    ],
                     'POST' => [
                         'controller' => $authorController,
                         'action' => 'registerUser'
+                    ],
+                    'GET' => [
+                        'controller' => $authorController,
+                        'action' => 'registrationForm'
                     ]
                 ],
                 'author/success' => [
